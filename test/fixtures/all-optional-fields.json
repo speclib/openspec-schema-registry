@@ -1,0 +1,40 @@
+{
+  "schemas": [
+    {
+      "id": "a/one",
+      "name": "one",
+      "description": "A workflow schema.",
+      "artifacts": [
+        "specs",
+        "tasks"
+      ],
+      "source": {
+        "repo": "https://github.com/owner/repo",
+        "path": "openspec/schemas/x"
+      },
+      "status": "deprecated",
+      "superseded_by": "b/two",
+      "language": "zh",
+      "license": "MIT",
+      "requires": {
+        "openspec": ">=1.10"
+      }
+    },
+    {
+      "id": "b/two",
+      "name": "two",
+      "description": "A workflow schema.",
+      "artifacts": [
+        "specs",
+        "tasks"
+      ],
+      "source": {
+        "repo": "https://github.com/owner/repo",
+        "path": "openspec/schemas/x"
+      },
+      "status": "active",
+      "language": "pt-BR",
+      "license": "Apache-2.0"
+    }
+  ]
+}

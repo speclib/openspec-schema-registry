@@ -48,13 +48,23 @@ function parseRegistry(path: string, source: string): unknown {
 }
 
 /**
+ * Read and parse a registry file without inspecting its contents.
+ *
+ * Shared with the validator so that a missing or unparseable file is reported
+ * the same way whichever entry point the reader came through.
+ */
+export function readRegistryDocument(path: string): unknown {
+  return parseRegistry(path, readRegistryFile(path));
+}
+
+/**
  * Read a registry file and return its entries in file order.
  *
  * An empty `schemas` array yields an empty list, because an empty registry is a
  * valid registry.
  */
 export function loadRegistry(path: string): RegistryEntry[] {
-  const document = parseRegistry(path, readRegistryFile(path));
+  const document = readRegistryDocument(path);
 
   if (document === null || typeof document !== 'object' || Array.isArray(document)) {
     throw new RegistryLoadError(path, 'registry file must hold a JSON object at its top level');

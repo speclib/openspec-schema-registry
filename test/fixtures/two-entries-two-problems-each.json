@@ -1,0 +1,32 @@
+{
+  "schemas": [
+    {
+      "id": "a/one",
+      "name": "one",
+      "description": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+      "artifacts": [
+        "specs",
+        "tasks"
+      ],
+      "source": {
+        "repo": "https://github.com/owner/repo",
+        "path": "openspec/schemas/x"
+      },
+      "licence": "MIT"
+    },
+    {
+      "id": "b/two",
+      "name": "two",
+      "description": "yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy",
+      "artifacts": [
+        "specs",
+        "tasks"
+      ],
+      "source": {
+        "repo": "https://github.com/owner/repo",
+        "path": "openspec/schemas/x"
+      },
+      "maintainer": "someone"
+    }
+  ]
+}

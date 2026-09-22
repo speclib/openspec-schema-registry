@@ -63,32 +63,14 @@ describe('the shipped registry file', () => {
   it('loads', () => {
     expect(Array.isArray(loadRegistry(registryFile))).toBe(true);
   });
-
-  it('gives every entry an id, and no two the same', () => {
-    const ids = loadRegistry(registryFile).map((entry) => entry['id']);
-
-    expect(ids.every((id) => typeof id === 'string' && id.length > 0)).toBe(true);
-    expect(new Set(ids).size).toBe(ids.length);
-  });
-
-  it('is sorted ascending by id', () => {
-    const ids = loadRegistry(registryFile).map((entry) => String(entry['id']));
-
-    expect(ids).toEqual([...ids].sort());
-  });
-
-  it('keeps every description within 100 characters', () => {
-    const tooLong = loadRegistry(registryFile)
-      .filter((entry) => String(entry['description']).length > 100)
-      .map((entry) => entry['id']);
-
-    expect(tooLong).toEqual([]);
-  });
 });
 
 describe('the package entry point', () => {
-  it('exports the loader and its error', () => {
+  it('exports the loader, the validator and its error', () => {
     expect(api.loadRegistry).toBe(loadRegistry);
     expect(api.RegistryLoadError).toBe(RegistryLoadError);
+    expect(typeof api.validateRegistry).toBe('function');
+    expect(typeof api.formatProblems).toBe('function');
+    expect(typeof api.defaultSchemaPath).toBe('function');
   });
 });

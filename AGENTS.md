@@ -18,7 +18,7 @@ npm install            # install dependencies
 npm run build          # type-check and build
 npm test               # run the vitest suite
 npm run coverage       # tests with a coverage report
-npm run validate       # validate openspec-schemas.json against its JSON Schema
+npm run validate       # check openspec-schemas.json: schema, unique ids, ordering
 
 nix develop            # dev shell with node and the tooling
 nix flake check        # build + tests + coverage gate (>=70% overall, >=80% core)

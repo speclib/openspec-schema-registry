@@ -21,6 +21,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `id`, each one checked against its upstream `schema.yaml`.
 - `docs/registry-inclusion.md`: what qualifies for the registry, why entries are ordered
   by `id`, and how a listed author corrects or withdraws an entry.
+- A JSON Schema describing `openspec-schemas.json`, wired into editors through a
+  `$schema` key on the file itself.
+- `npm run validate`, one offline command checking the schema plus the rules a JSON
+  Schema cannot express: unique ids, ascending order, and supersessions that resolve.
+  It reports problems against the entry's `id` and suggests a field name when one is
+  misspelled.
 
 ### Changed
 

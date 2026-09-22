@@ -123,7 +123,6 @@
           packages = [
             nodejs
             pkgs.jq
-            pkgs.check-jsonschema
           ];
 
           shellHook = ''

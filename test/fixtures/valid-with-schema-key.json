@@ -1,0 +1,18 @@
+{
+  "$schema": "../../schema/openspec-schemas.schema.json",
+  "schemas": [
+    {
+      "id": "a/one",
+      "name": "one",
+      "description": "A workflow schema.",
+      "artifacts": [
+        "specs",
+        "tasks"
+      ],
+      "source": {
+        "repo": "https://github.com/owner/repo",
+        "path": "openspec/schemas/x"
+      }
+    }
+  ]
+}

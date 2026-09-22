@@ -1,0 +1,115 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "OpenSpec schema registry",
+  "description": "The registry of OpenSpec workflow schemas published for other projects to install.",
+  "type": "object",
+  "required": ["schemas"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "description": "Points at this schema so an editor can validate the file while it is edited."
+    },
+    "schemas": {
+      "type": "array",
+      "description": "The registry entries, sorted ascending by id.",
+      "items": { "$ref": "#/$defs/entry" }
+    }
+  },
+  "$defs": {
+    "id": {
+      "type": "string",
+      "description": "Registry-unique slug of the form <owner>/<name>, lowercase and permanent.",
+      "pattern": "^[a-z0-9][a-z0-9._-]*/[a-z0-9][a-z0-9._-]*$"
+    },
+    "entry": {
+      "type": "object",
+      "required": ["id", "name", "description", "artifacts", "source"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "description": "The schema's own declared name, with upstream's casing. Not unique across the registry."
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100,
+          "description": "One line written for the registry, at most 100 characters."
+        },
+        "artifacts": {
+          "type": "array",
+          "description": "The artifact ids the schema declares, in order, copied from its schema.yaml.",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "source": {
+          "type": "object",
+          "required": ["repo", "path"],
+          "additionalProperties": false,
+          "properties": {
+            "repo": {
+              "type": "string",
+              "description": "Repository URL.",
+              "pattern": "^https://"
+            },
+            "path": {
+              "type": "string",
+              "description": "Directory inside the repository holding schema.yaml.",
+              "minLength": 1
+            },
+            "ref": {
+              "type": "string",
+              "description": "Tag, branch or commit. Absent means the repository's default branch.",
+              "minLength": 1
+            }
+          }
+        },
+        "requires": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "openspec": {
+              "type": "string",
+              "description": "Minimum OpenSpec version. Advisory; the registry does not verify it.",
+              "minLength": 1
+            }
+          }
+        },
+        "status": {
+          "enum": ["active", "deprecated"],
+          "description": "Absent means active."
+        },
+        "superseded_by": {
+          "$ref": "#/$defs/id",
+          "description": "The id of the entry replacing this one. Only on a deprecated entry."
+        },
+        "license": {
+          "type": "string",
+          "minLength": 1,
+          "description": "SPDX identifier. Absent means the licence is unknown, not that there is none."
+        },
+        "language": {
+          "type": "string",
+          "description": "Language of the schema's instructions and templates. Absent means en.",
+          "pattern": "^[a-z]{2}(-[A-Za-z0-9]+)?$"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "superseded_by": { "type": "string" } },
+            "required": ["superseded_by"]
+          },
+          "then": {
+            "properties": { "status": { "const": "deprecated" } },
+            "required": ["status"]
+          }
+        }
+      ]
+    }
+  }
+}

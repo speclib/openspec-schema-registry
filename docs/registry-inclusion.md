@@ -9,6 +9,11 @@ install. Two tests decide whether a schema belongs, and both have to pass.
 `schema.yaml` under `source.path` that `openspec schema validate` accepts. This one a
 machine can run.
 
+Run `npm run validate` before submitting an entry. It checks everything that can be checked
+without the network: the entry's shape against the JSON Schema, that no `id` repeats, that
+entries stay sorted by `id`, and that a `superseded_by` names an entry that exists. It
+names any entry it objects to and says what to change.
+
 ## The judgement
 
 **Does this repository exist for the schema?**
