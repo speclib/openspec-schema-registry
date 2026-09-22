@@ -1,1 +1,147 @@
-{ "schemas": [] }
+{
+  "schemas": [
+    {
+      "id": "danielhanold/superspec",
+      "name": "SuperSpec",
+      "description": "Spec-driven workflow wired into Superpowers skills and worktrees.",
+      "artifacts": ["brainstorm", "proposal", "design", "specs", "tasks", "plan", "apply", "verify", "finalize"],
+      "source": {
+        "repo": "https://github.com/danielhanold/superspec",
+        "path": "openspec/schemas/superspec"
+      },
+      "license": "MIT"
+    },
+    {
+      "id": "griffithkk3-del/spec-driven-reviewed",
+      "name": "spec-driven-reviewed",
+      "description": "Adds an evidence-driven review gate between proposal and specs.",
+      "artifacts": ["proposal", "review", "specs", "design", "tasks"],
+      "source": {
+        "repo": "https://github.com/griffithkk3-del/openspec-reviewed-workflow",
+        "path": "openspec/schemas/spec-driven-reviewed"
+      },
+      "license": "MIT"
+    },
+    {
+      "id": "intent-driven-dev/behaviour-driven",
+      "name": "behaviour-driven",
+      "description": "Spec-driven workflow that states requirements as behaviours.",
+      "artifacts": ["proposal", "specs", "design", "tasks"],
+      "source": {
+        "repo": "https://github.com/intent-driven-dev/openspec-schemas",
+        "path": "openspec/schemas/behaviour-driven"
+      },
+      "license": "MIT"
+    },
+    {
+      "id": "intent-driven-dev/event-driven",
+      "name": "event-driven",
+      "description": "Event storming and modelling before specs, with an AsyncAPI artifact.",
+      "artifacts": ["event-storming", "event-modeling", "specs", "design", "asyncapi", "tasks"],
+      "source": {
+        "repo": "https://github.com/intent-driven-dev/openspec-schemas",
+        "path": "openspec/schemas/event-driven"
+      },
+      "license": "MIT"
+    },
+    {
+      "id": "intent-driven-dev/intent-driven",
+      "name": "intent-driven",
+      "description": "Spec-driven workflow with an architecture decision record per change.",
+      "artifacts": ["proposal", "specs", "design", "adr", "tasks"],
+      "source": {
+        "repo": "https://github.com/intent-driven-dev/openspec-schemas",
+        "path": "openspec/schemas/intent-driven"
+      },
+      "license": "MIT"
+    },
+    {
+      "id": "intent-driven-dev/minimalist",
+      "name": "minimalist",
+      "description": "Lightweight workflow for well-scoped, low-risk changes.",
+      "artifacts": ["specs", "tasks"],
+      "source": {
+        "repo": "https://github.com/intent-driven-dev/openspec-schemas",
+        "path": "openspec/schemas/minimalist"
+      },
+      "license": "MIT"
+    },
+    {
+      "id": "intent-driven-dev/spec-driven-with-adr",
+      "name": "spec-driven-with-adr",
+      "description": "The default workflow plus an architecture decision record.",
+      "artifacts": ["proposal", "specs", "design", "adr", "tasks"],
+      "source": {
+        "repo": "https://github.com/intent-driven-dev/openspec-schemas",
+        "path": "openspec/schemas/spec-driven-with-adr"
+      },
+      "license": "MIT"
+    },
+    {
+      "id": "jiangway/superpowers-bridge",
+      "name": "superpowers-bridge",
+      "description": "OpenSpec bridged to Superpowers skills, ending in a retrospective.",
+      "artifacts": ["brainstorm", "proposal", "design", "specs", "tasks", "plan", "verify", "retrospective"],
+      "source": {
+        "repo": "https://github.com/JiangWay/openspec-schemas",
+        "path": "superpowers-bridge"
+      },
+      "license": "MIT"
+    },
+    {
+      "id": "kmhalvin/qrspi",
+      "name": "qrspi",
+      "description": "Question, research and design phases with strict context drops.",
+      "artifacts": ["question-research-prep", "question-research", "draft-questions", "research-codebase", "design-proposal-prep", "design-proposal", "draft-design", "draft-structure", "draft-plan"],
+      "source": {
+        "repo": "https://github.com/kmhalvin/openspec-schemas",
+        "path": "openspec/schemas/qrspi"
+      },
+      "license": "MIT"
+    },
+    {
+      "id": "kmhalvin/subagent-spec-driven",
+      "name": "subagent-spec-driven",
+      "description": "Spec-driven workflow routing every phase through a research subagent.",
+      "artifacts": ["research-proposal-prep", "research-proposal", "research-feasibility-prep", "research-feasibility", "draft-proposal-prep", "draft-proposal", "research-specs-prep", "research-specs", "draft-specs-prep", "draft-specs", "research-design-prep", "research-design", "draft-design-prep", "draft-design", "draft-tasks-prep", "draft-tasks"],
+      "source": {
+        "repo": "https://github.com/kmhalvin/openspec-schemas",
+        "path": "openspec/schemas/subagent-spec-driven"
+      },
+      "license": "MIT"
+    },
+    {
+      "id": "lukk17/e2e-runbooks",
+      "name": "e2e-runbooks",
+      "description": "Capability-level e2e runbooks with behaviour-only assertions.",
+      "artifacts": ["proposal", "test-spec", "tasks-template", "run"],
+      "source": {
+        "repo": "https://github.com/Lukk17/openspec-schemas",
+        "path": "openspec/schemas/e2e-runbooks",
+        "ref": "v0.2.0"
+      },
+      "license": "MIT"
+    },
+    {
+      "id": "speclib/tinychange",
+      "name": "tinychange",
+      "description": "Lean specs to tasks workflow for very small changes.",
+      "artifacts": ["specs", "tasks"],
+      "source": {
+        "repo": "https://github.com/speclib/openspec-tinychange-schema",
+        "path": "openspec/schemas/tinychange"
+      }
+    },
+    {
+      "id": "veath/spec-driven-superpowers",
+      "name": "spec-driven-superpowers",
+      "description": "Superpowers planning and verification on the default command surface.",
+      "artifacts": ["proposal", "specs", "design", "review", "tasks", "plan"],
+      "source": {
+        "repo": "https://github.com/Veath/openspec-spec-driven-superpowers",
+        "path": "schemas/spec-driven-superpowers"
+      },
+      "license": "MIT"
+    }
+  ]
+}

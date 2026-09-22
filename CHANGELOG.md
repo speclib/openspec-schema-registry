@@ -17,6 +17,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `openspec-schemas.json`, created empty and ready for its entries.
 - A registry entry model: six required fields, defined defaults for the optional ones,
   and a field reference in `docs/registry-entry.md`.
+- `openspec-schemas.json` seeded with 13 workflow schemas from 8 repositories, sorted by
+  `id`, each one checked against its upstream `schema.yaml`.
+- `docs/registry-inclusion.md`: what qualifies for the registry, why entries are ordered
+  by `id`, and how a listed author corrects or withdraws an entry.
 
 ### Changed
 

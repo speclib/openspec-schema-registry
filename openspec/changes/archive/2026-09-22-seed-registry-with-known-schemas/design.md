@@ -99,26 +99,29 @@ works: a top-level object with a `schemas` array. An object rather than a bare a
 the JSON Schema epic can add a `$schema` pointer or a document version without a breaking
 change. Everything beyond that is deferred rather than guessed.
 
-### Notification is a task, not a courtesy
+### No author is contacted
 
-Seven authors get listed without asking. Opening an issue on each repository is what turns
-an inferred consent into a real one, and it recruits the person best placed to keep the
-entry accurate. It also creates the correction path the registry promises, which is why the
-spec requires honouring a removal request without argument: the alternative is a registry
-that publishes claims about other people's work over their objection.
+Opening an issue on each listed repository was considered and dropped. It would turn an
+inferred consent into a real one, but it also puts an unsolicited notice on seven
+repositories whose owners never asked to hear from this project, and the registry is not
+important enough yet to justify the interruption.
 
-It runs last, after the entries are verified, because the issue shows the author their
-entry. An issue that shows them a wrong entry costs more goodwill than it earns.
+What remains is the part that protects the author rather than the part that performs
+concern: every entry links to the repository it came from, the documented removal path is
+unconditional, and a correction from the author wins over the registry's own wording. An
+author who never notices the listing loses nothing by it, and one who does notice has a
+way out that costs them a sentence.
 
 ## Risks / Trade-offs
 
-- **Listing people who did not ask.** Even with notification, the first contact is a fait
-  accompli. → Keep the entry to verifiable facts plus a short description, make the
-  withdrawal path unconditional, and keep the set small enough that each entry was checked
-  by hand.
+- **Listing people who did not ask, without telling them.** An author may never learn their
+  schema is listed. → Keep the entry to verifiable facts plus a short description, link
+  every entry to its source repository, make the withdrawal path unconditional, and keep
+  the set small enough that each entry was checked by hand.
 - **The description is written by us for someone else's work.** A registry-authored line
-  can misrepresent a schema's intent. → The notification issue shows the author exactly
-  that line, and their correction wins over ours.
+  can misrepresent a schema's intent, and nobody tells the author it exists. → Keep it to
+  what the schema's own documentation says about itself, and take the author's correction
+  over ours whenever one arrives.
 - **Inherited judgement can be wrong.** A repository on the curated list might not really
   be published for reuse. → The admission question is applied to each of the 8 repositories
   rather than assumed from the list membership.

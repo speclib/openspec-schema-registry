@@ -1,10 +1,11 @@
-## Purpose
+# registry-file Specification
 
+## Purpose
 Defines the document that holds the registry entries: its shape, the order entries appear
 in, which schemas qualify for inclusion, and how a schema author who was listed without
 asking can correct or withdraw their entry.
 
-## ADDED Requirements
+## Requirements
 
 ### Requirement: The registry is a single JSON document holding an array of entries
 
@@ -86,15 +87,16 @@ entry.
 
 ### Requirement: A listed author can correct or withdraw their entry
 
-When an entry is added without its author submitting it, the registry SHALL notify that
-author, SHALL show them the entry as listed, and SHALL offer a way to correct it or have it
-removed. A removal request SHALL be honoured.
+Where an entry was added without its author submitting it, the registry SHALL document an
+unconditional path to correct or remove it, and SHALL honour a removal request without
+asking for a reason. Every entry SHALL link to the source repository, so a listing is
+traceable to the author who published the schema.
 
-#### Scenario: An author is listed without asking
+#### Scenario: An author finds their schema listed
 
-- **WHEN** an entry is added for a schema whose author did not submit it
-- **THEN** the author is notified on their own repository, shown the entry, and told how to
-  correct or withdraw it
+- **WHEN** a schema author discovers an entry they did not submit
+- **THEN** the registry's documentation tells them how to correct it or have it removed,
+  and the entry links to their own repository
 
 #### Scenario: An author asks to be removed
 

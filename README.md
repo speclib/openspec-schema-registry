@@ -11,6 +11,10 @@ with this registry.
 [docs/registry-entry.md](docs/registry-entry.md) is the field reference: what an entry must
 carry, what each optional field means when absent, and where an installed schema lands.
 
+[docs/registry-inclusion.md](docs/registry-inclusion.md) covers what gets listed: the two
+admission tests, why entries are sorted by `id`, and how an author who was listed without
+asking can correct or withdraw their entry.
+
 ## Dependency hash
 
 `nix flake check` builds the npm project through `buildNpmPackage`, which needs the hash of

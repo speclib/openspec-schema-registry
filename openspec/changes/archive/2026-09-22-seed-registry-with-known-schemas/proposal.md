@@ -34,9 +34,9 @@ Epic: [.beans/openspec-schema-registry-ir8u--seed-the-registry-with-known-schema
 - **Every seed entry carries `language: en` by default.** The four Chinese-language
   candidates in the curated list all fail the mechanical test, so the seed does not
   exercise the field at all.
-- **Each of the 7 third-party authors gets an issue** on their repository showing the entry
-  as listed, with a link to correct it or ask for removal. It converts an inferred consent
-  into a real one and hands maintenance of the entry to the person who owns the schema.
+- **No author is contacted.** Every entry links to its source repository, and the
+  documented path to correct or withdraw an entry is unconditional. An author who finds
+  their schema listed can have it removed without giving a reason.
 
 ## Capabilities
 
@@ -62,6 +62,6 @@ capability describes the document around it.
 - **Constrains**: `openspec-schema-registry-la9x`, which documents the ordering rule and
   the admission judgement for contributors, and inherits the correction path the
   notification issues promise.
-- **Outward-facing**: opening issues on 7 repositories belonging to other people is the
-  first thing this project does in public. It needs the entries to be right before it
-  happens, which is why it is the last task group rather than the first.
+- **Nothing outward-facing**: no issues are opened and no author is contacted. The
+  registry's only contact with the listed repositories is reading their public
+  `schema.yaml`.
