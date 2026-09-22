@@ -15,6 +15,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - A loader that reads `openspec-schemas.json` and refuses a file it cannot trust,
   naming the file in every error.
 - `openspec-schemas.json`, created empty and ready for its entries.
+- A registry entry model: six required fields, defined defaults for the optional ones,
+  and a field reference in `docs/registry-entry.md`.
 
 ### Changed
 

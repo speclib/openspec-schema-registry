@@ -29,6 +29,12 @@ openspec list          # show active changes
 scripts/ship-change.sh <change-name> [commit-subject]
 ```
 
+## Registry entry
+
+The shape of one entry in `openspec-schemas.json` is documented in
+[docs/registry-entry.md](docs/registry-entry.md). Read it before adding or editing an entry;
+the normative version is `openspec/specs/registry-entry/spec.md`.
+
 ## Beans
 
 When I refer to issues like openspec-schema-registry-rn3b checkout the task
