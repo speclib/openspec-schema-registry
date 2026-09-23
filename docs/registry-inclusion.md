@@ -14,6 +14,11 @@ without the network: the entry's shape against the JSON Schema, that no `id` rep
 entries stay sorted by `id`, and that a `superseded_by` names an entry that exists. It
 names any entry it objects to and says what to change.
 
+After an entry is merged, `npm run check-sources` keeps watching it. It fetches each entry's
+`schema.yaml` and reports when `name` or `artifacts` no longer match, or when the source has
+gone. It runs on every push, on every contribution, and nightly, because an entry that follows
+a default branch can change with nobody touching this repository.
+
 ## The judgement
 
 **Does this repository exist for the schema?**

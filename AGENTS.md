@@ -19,6 +19,7 @@ npm run build          # type-check and build
 npm test               # run the vitest suite
 npm run coverage       # tests with a coverage report
 npm run validate       # check openspec-schemas.json: schema, unique ids, ordering
+npm run check-sources  # check every entry against its upstream schema.yaml (network)
 
 nix develop            # dev shell with node and the tooling
 nix flake check        # build + tests + coverage gate (>=70% overall, >=80% core)

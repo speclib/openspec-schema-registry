@@ -1,0 +1,6 @@
+name: tinychange
+version: 1
+description: Lean specs to tasks workflow.
+artifacts:
+  - id: specs
+  - id: tasks

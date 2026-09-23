@@ -1,0 +1,15 @@
+name: "SuperSpec"
+version: 4
+description: >-
+  A folded description that runs across
+  several lines and contains name: not-the-name
+  and even a list-looking line:
+  - id: not-an-artifact
+artifacts:
+  - id: brainstorm
+    generates: brainstorm.md
+  - id: proposal
+    requires:
+      - brainstorm
+apply:
+  tracks: tasks.md

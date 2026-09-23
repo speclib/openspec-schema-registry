@@ -20,13 +20,15 @@
     "build": "tsc -p tsconfig.json",
     "test": "vitest run",
     "coverage": "vitest run --coverage",
-    "validate": "npm run build && node dist/validate-main.js openspec-schemas.json"
+    "validate": "npm run build && node dist/validate-main.js openspec-schemas.json",
+    "check-sources": "npm run build && node dist/check-sources-main.js openspec-schemas.json"
   },
   "devDependencies": {
     "@types/node": "^22.10.2",
     "@vitest/coverage-v8": "^2.1.8",
     "typescript": "^5.7.2",
-    "vitest": "^2.1.8"
+    "vitest": "^2.1.8",
+    "yaml": "^2.9.1"
   },
   "dependencies": {
     "ajv": "^8.17.1"

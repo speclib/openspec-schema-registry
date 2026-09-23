@@ -1,0 +1,3 @@
+name: x
+artifacts:
+  - generates: a.md

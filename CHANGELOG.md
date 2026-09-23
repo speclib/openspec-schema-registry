@@ -27,6 +27,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   Schema cannot express: unique ids, ascending order, and supersessions that resolve.
   It reports problems against the entry's `id` and suggests a field name when one is
   misspelled.
+- `npm run check-sources`, which fetches every entry's upstream `schema.yaml` and reports
+  what changed: a source that has gone, a schema renamed, or an artifact list that moved.
+  A source it cannot reach is reported separately and does not count as a change.
+- A GitHub Actions workflow running that check on every push, on contributions, and
+  nightly, with a badge in the README.
 
 ### Changed
 

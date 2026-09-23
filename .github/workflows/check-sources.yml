@@ -1,0 +1,52 @@
+name: Sources
+
+# Three triggers, one workflow, one badge.
+#
+# The push trigger is the one that matters today: scripts/ship-change.sh pushes
+# straight to main, so a pull-request-only check would never have run. The
+# pull_request trigger is for contributions, which do not exist yet. The schedule
+# is the only trigger that catches an entry drifting with nobody touching this
+# repository, which is twelve of the thirteen entries.
+#
+# A workflow badge reflects the latest run on the default branch, so pull request
+# runs do not colour it.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - openspec-schemas.json
+      - src/**
+      - .github/workflows/check-sources.yml
+  pull_request:
+    paths:
+      - openspec-schemas.json
+      - src/**
+      - .github/workflows/check-sources.yml
+  schedule:
+    # Nightly. GitHub pauses a schedule after 60 days without repository activity.
+    - cron: '23 4 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check-sources:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Check every entry against its source
+        run: npm run check-sources
+        env:
+          # Raises the rate limit from 60 to 5000 requests an hour, so rate
+          # limiting cannot hide drift behind an undetermined result.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
