@@ -1,5 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://registry.speclib.org/api/v1/schema.json",
   "title": "OpenSpec schema registry",
   "description": "The registry of OpenSpec workflow schemas published for other projects to install.",
   "type": "object",

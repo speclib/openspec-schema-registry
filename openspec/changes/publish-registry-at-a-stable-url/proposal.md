@@ -12,9 +12,9 @@ Epic: [.beans/openspec-schema-registry-9hi8--publish-at-a-stable-url.md](../../.
 ## What Changes
 
 - **The canonical URL becomes
-  `https://registry.speclib.org/api/v1/openspec-schemas.json`**, served from GitHub Pages on
-  a custom subdomain. Its JSON Schema sits beside it at
-  `https://registry.speclib.org/api/v1/schema.json`.
+  `https://registry.speclib.org/api/v1/openspec-schemas.json`**, served by AWS Amplify
+  Hosting from account 104144963194, which is where `speclib.org` DNS already lives. Its
+  JSON Schema sits beside it at `https://registry.speclib.org/api/v1/schema.json`.
 - **The published file is byte-identical to the one in the repository.** Nothing is
   generated, rewritten or reordered on the way out, so what a consumer fetches is what
   `npm run validate` checked.
@@ -25,9 +25,10 @@ Epic: [.beans/openspec-schema-registry-9hi8--publish-at-a-stable-url.md](../../.
   reads `v1` correctly would misread the new document. Adding entries or optional fields is
   not that. When a `v2` appears, `v1` keeps being served.
 - **Publishing is gated on validation.** An invalid registry never reaches the URL.
-- **No site build.** The published site is a directory of static files. The registry is a
+- **No framework.** The published site is a directory of static files. The registry is a
   JSON file at a stable URL, so a page can fetch it rather than bake it, which leaves the
-  site with no data dependency and therefore nothing to compile.
+  site with no data dependency and therefore nothing to compile. The build that does exist
+  validates and copies, and is the publication gate rather than a compilation step.
 - **The raw URL is documented as a permanent fallback**, unversioned and outside the
   contract, since a public repository serves it whether we promise it or not.
 
@@ -44,17 +45,27 @@ Epic: [.beans/openspec-schema-registry-9hi8--publish-at-a-stable-url.md](../../.
 
 ## Impact
 
-- **New**: the published site directory, a GitHub Actions workflow that deploys it, a `CNAME`
-  file, and `openspec/specs/registry-publication/spec.md` after archiving.
+- **New**: the published site directory, an `amplify.yml` that validates and assembles it,
+  and `openspec/specs/registry-publication/spec.md` after archiving.
 - **Changed**: `openspec-schemas.json` gains an absolute `$schema`,
   `schema/openspec-schemas.schema.json` gains an `$id`, and the README documents the URL.
 - **Completes**: `openspec-schema-registry-9hi8`.
 - **Prepares**: `openspec-schema-registry-h885`, which puts a page at `/` fetching
   `/api/v1/openspec-schemas.json`. This change reserves that root and does not use it.
-- **Blocked on DNS**: `registry.speclib.org` does not resolve yet. The `CNAME` file must land
-  only after it does, because GitHub treats a configured custom domain as authoritative and
-  redirects the github.io address to it, so committing it early makes the site unreachable at
-  both addresses.
+- **Depends on a change in another repository**: the Amplify app, its `main` branch and its
+  domain association for `registry.speclib.org` are declared in
+  `wasnel-awsaccount-104144963194-main`, which already owns the `speclib.org` zone. Amplify
+  writes the certificate validation records and the host record into that zone itself, so
+  nothing here configures DNS. Until that app exists, nothing is promised as canonical and
+  the raw URL is what a consumer uses.
+- **Connecting Amplify needs a GitHub token**, held as an SSM SecureString in that AWS
+  account. The repository is public, but Amplify still needs a token to read it and to
+  install its webhook.
+- **Claims one hostname, not the domain**: the association claims
+  `registry.speclib.org` only. A later Amplify app can take the apex, because the constraint
+  is one CloudFront distribution per hostname rather than one app per domain. Doing so from
+  the Amplify console would take the whole domain and break this association, so it has to be
+  declared, not clicked.
 - **Not included**: reproducible releases in the sense of versioned snapshots of the registry
   file. The registry is a catalogue whose contents change as entries arrive, and a consumer
   that needs a fixed copy pins a commit through the raw URL. Adding `v1` to the path covers

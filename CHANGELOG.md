@@ -32,7 +32,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   A source it cannot reach is reported separately and does not count as a change.
 - A GitHub Actions workflow running that check on every push, on contributions, and
   nightly, with a badge in the README.
+- The registry published at `https://registry.speclib.org/api/v1/openspec-schemas.json`,
+  with its JSON Schema beside it at `/api/v1/schema.json`. The published file is
+  byte-identical to the one in the repository, and a deploy only happens once
+  `npm run validate` passes.
+- `npm run assemble-site`, which builds the directory the site serves. It publishes those
+  two files and leaves the root empty for a page.
 
 ### Changed
+
+- `$schema` in `openspec-schemas.json` is now the absolute published URL rather than a
+  path to the file beside it, so the pointer still resolves in a copy a consumer caches.
+  The JSON Schema carries the matching `$id`.
 
 ### Fixed

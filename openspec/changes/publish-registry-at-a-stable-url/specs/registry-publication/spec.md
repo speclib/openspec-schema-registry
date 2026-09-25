@@ -10,8 +10,10 @@ what the version in the path means, and what the project deliberately does not p
 The registry SHALL be published at `https://registry.speclib.org/api/v1/openspec-schemas.json`
 and its JSON Schema at `https://registry.speclib.org/api/v1/schema.json`. That address SHALL
 be the one the project documents and supports. The path SHALL NOT change while the version
-stays the same, because a JSON document cannot redirect a consumer to a new location and the
-host offers no control over redirects.
+stays the same. The host can serve a redirect, so a move is survivable rather than fatal, but
+a redirect the project must keep serving forever is the same commitment as keeping the path,
+bought at the cost of an extra round trip and of every stored copy pointing somewhere the
+document no longer is.
 
 #### Scenario: A consumer fetches the registry
 

@@ -4,3 +4,4 @@ coverage/
 .direnv/
 result
 result-*
+site/

@@ -1,5 +1,5 @@
 {
-  "$schema": "./schema/openspec-schemas.schema.json",
+  "$schema": "https://registry.speclib.org/api/v1/schema.json",
   "schemas": [
     {
       "id": "danielhanold/superspec",

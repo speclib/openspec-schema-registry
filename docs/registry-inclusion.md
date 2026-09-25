@@ -14,6 +14,10 @@ without the network: the entry's shape against the JSON Schema, that no `id` rep
 entries stay sorted by `id`, and that a `superseded_by` names an entry that exists. It
 names any entry it objects to and says what to change.
 
+Once an entry is merged, it appears at the canonical URL,
+`https://registry.speclib.org/api/v1/openspec-schemas.json`, on the next deploy. Merging to
+`main` builds the site, and the build publishes only after `npm run validate` passes.
+
 After an entry is merged, `npm run check-sources` keeps watching it. It fetches each entry's
 `schema.yaml` and reports when `name` or `artifacts` no longer match, or when the source has
 gone. It runs on every push, on every contribution, and nightly, because an entry that follows

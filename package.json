@@ -21,7 +21,8 @@
     "test": "vitest run",
     "coverage": "vitest run --coverage",
     "validate": "npm run build && node dist/validate-main.js openspec-schemas.json",
-    "check-sources": "npm run build && node dist/check-sources-main.js openspec-schemas.json"
+    "check-sources": "npm run build && node dist/check-sources-main.js openspec-schemas.json",
+    "assemble-site": "npm run build && node dist/assemble-site-main.js site"
   },
   "devDependencies": {
     "@types/node": "^22.10.2",

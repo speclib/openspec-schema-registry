@@ -4,6 +4,50 @@
 
 Registry of openspec schemas in the wild.
 
+## Fetching the registry
+
+```
+https://registry.speclib.org/api/v1/openspec-schemas.json
+https://registry.speclib.org/api/v1/schema.json
+```
+
+That is the address this project supports, and three things hold at it:
+
+- **The address is stable.** It does not move while the version stays the same.
+- **The contents change.** The registry is a catalogue, so entries arrive, get corrected
+  and get deprecated. Both of two fetches that return different things were correct.
+- **One request is enough.** The response carries every entry, so nothing has to be paged
+  or followed.
+
+The published file is byte-identical to `openspec-schemas.json` in this repository. Nothing
+is generated, reordered or added on the way out, so what you fetch is what `npm run validate`
+checked. A deploy only happens when that validation passes; when it fails the previous
+document stays in place.
+
+### What `v1` means
+
+The version changes when a consumer that reads the current version correctly would misread
+the new document. Adding an entry, correcting an entry, and adding an optional field are not
+that. Renaming a field, adding a required one, or changing what an existing field means are.
+
+When a `v2` is published, `v1` keeps being served. That is the whole point of the segment.
+
+### The raw URL, and pinning a commit
+
+GitHub serves the same file directly:
+
+```
+https://raw.githubusercontent.com/speclib/openspec-schema-registry/main/openspec-schemas.json
+```
+
+This one sits outside the contract. It is unversioned, it is not what the project promises,
+and its shape changes with the file. Use it as a fallback when the canonical address is
+unreachable, since it keeps working for as long as this repository is public.
+
+It is also where you pin. The canonical address always serves the current registry and offers
+no way to ask for an older one, so a consumer that needs a fixed copy swaps `main` for a
+commit sha and fetches that.
+
 ## Registry entry
 
 `openspec-schemas.json` lists schemas you install from a source. The `spec-driven` schema
