@@ -71,10 +71,15 @@
       Verify from a resolver rather than from the Amplify console. Done 2026-09-29:
       `dig @1.1.1.1 registry.speclib.org` returns a CNAME to `d17jskweo18ulc.cloudfront.net`,
       and an HTTPS request to the host completes with a certificate that verifies.
-- [ ] 6.3 Fetch `https://registry.speclib.org/api/v1/openspec-schemas.json` and verify it
-      returns the 13 entries with `content-type: application/json`.
-- [ ] 6.4 Fetch `https://registry.speclib.org/api/v1/schema.json` and verify the document's
-      `$schema` resolves to it.
-- [ ] 6.5 Verify the root answers without serving the registry from it, confirming the
+- [x] 6.3 Fetch `https://registry.speclib.org/api/v1/openspec-schemas.json` and verify it
+      returns the 13 entries with `content-type: application/json`. Done 2026-09-29: 200,
+      `content-type: application/json`, 13 entries, and the bytes compare equal to
+      `openspec-schemas.json` in the repository.
+- [x] 6.4 Fetch `https://registry.speclib.org/api/v1/schema.json` and verify the document's
+      `$schema` resolves to it. Done 2026-09-29: the published document's `$schema` is that
+      URL, the URL returns 200 with the matching `$id`, and its bytes compare equal to
+      `schema/openspec-schemas.schema.json`.
+- [x] 6.5 Verify the root answers without serving the registry from it, confirming the
       reserved-root requirement holds against the real host rather than against the assembled
-      directory alone.
+      directory alone. Done 2026-09-29: the root answers 404 with an empty body, so nothing
+      is served from it and the address is free for the page `h885` will add.
