@@ -1,13 +1,14 @@
 /**
  * Assembling the directory that gets published at `registry.speclib.org`.
  *
- * Two files are copied and nothing is generated: the published document has to be
+ * Files are copied and nothing is generated: the published document has to be
  * byte-identical to the one validation checked, so this reads and writes bytes
  * rather than parsing and re-serialising. A field added on the way out would be
  * the one part of the document nothing ever validated.
  *
- * The root of the output stays empty. It is reserved for a human-facing page, so
- * that page routes and machine addresses never have to be untangled later.
+ * The root holds the human-facing page and nothing else. Every machine address
+ * sits under the versioned path, so page routes and machine addresses never have
+ * to be untangled later.
  */
 
 import { cpSync, mkdirSync, readdirSync, rmSync, statSync } from 'node:fs';
@@ -28,9 +29,13 @@ export interface PublishedFile {
  * current version correctly would misread the new document.
  */
 export const publishedFiles: readonly PublishedFile[] = [
+  { source: 'public/index.html', published: 'index.html' },
   { source: 'openspec-schemas.json', published: 'api/v1/openspec-schemas.json' },
   { source: 'schema/openspec-schemas.schema.json', published: 'api/v1/schema.json' },
 ];
+
+/** The prefix every machine address sits under, which the root never encroaches on. */
+export const versionedPrefix = 'api/v1/';
 
 /** Raised when the output directory is one it would be reckless to empty. */
 export class PublishError extends Error {

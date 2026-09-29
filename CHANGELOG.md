@@ -36,8 +36,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   with its JSON Schema beside it at `/api/v1/schema.json`. The published file is
   byte-identical to the one in the repository, and a deploy only happens once
   `npm run validate` passes.
-- `npm run assemble-site`, which builds the directory the site serves. It publishes those
-  two files and leaves the root empty for a page.
+- `npm run assemble-site`, which builds the directory the site serves: the two files above
+  under `/api/v1/`, and the page at the root.
+- A placeholder page at `https://registry.speclib.org/`, so the domain answers a person who
+  pastes it into a browser rather than returning 404.
 
 ### Changed
 

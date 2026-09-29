@@ -3,12 +3,19 @@ import { mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSyn
 import { tmpdir } from 'node:os';
 import { join, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { assembleSite, publishedFiles, PublishError, repositoryRoot } from '../src/core/publish.js';
+import {
+  assembleSite,
+  publishedFiles,
+  PublishError,
+  repositoryRoot,
+  versionedPrefix,
+} from '../src/core/publish.js';
 import { validateRegistry } from '../src/core/validate.js';
 
 const root = repositoryRoot();
 const registryFile = fileURLToPath(new URL('../openspec-schemas.json', import.meta.url));
 const schemaFile = fileURLToPath(new URL('../schema/openspec-schemas.schema.json', import.meta.url));
+const pageFile = fileURLToPath(new URL('../public/index.html', import.meta.url));
 
 let workspace: string;
 let site: string;
@@ -39,32 +46,48 @@ function tree(directory: string): string[] {
   return found.sort();
 }
 
-describe('the publishable directory holds the two files it serves', () => {
-  it('assembles exactly the registry and its schema', () => {
+describe('the publishable directory holds the files it serves', () => {
+  it('assembles exactly the page, the registry and its schema', () => {
     assembleSite(site, root);
 
-    expect(tree(site)).toEqual(['api/v1/openspec-schemas.json', 'api/v1/schema.json']);
+    expect(tree(site)).toEqual([
+      'api/v1/openspec-schemas.json',
+      'api/v1/schema.json',
+      'index.html',
+    ]);
   });
 
   it('reports the published paths, which are the paths in the URL', () => {
     expect(assembleSite(site, root)).toEqual([
+      'index.html',
       'api/v1/openspec-schemas.json',
       'api/v1/schema.json',
     ]);
   });
 
-  it('places nothing at the root, which is reserved for a page', () => {
+  it('places only the page at the root, which the root is reserved for', () => {
     assembleSite(site, root);
-
-    expect(readdirSync(site)).toEqual(['api']);
-    expect(tree(site).filter((path) => !path.includes('/'))).toEqual([]);
-  });
-
-  it('would fail if a file were added at the root', () => {
-    assembleSite(site, root);
-    writeFileSync(join(site, 'index.html'), '<!doctype html>');
 
     expect(tree(site).filter((path) => !path.includes('/'))).toEqual(['index.html']);
+  });
+
+  it('keeps every machine address under the versioned path', () => {
+    assembleSite(site, root);
+
+    expect(tree(site).filter((path) => path.endsWith('.json'))).toEqual([
+      'api/v1/openspec-schemas.json',
+      'api/v1/schema.json',
+    ]);
+  });
+
+  it('would fail if a second file were added at the root', () => {
+    assembleSite(site, root);
+    writeFileSync(join(site, 'openspec-schemas.json'), '{}');
+
+    expect(tree(site).filter((path) => !path.includes('/'))).toEqual([
+      'index.html',
+      'openspec-schemas.json',
+    ]);
   });
 
   it('drops a file left behind by an earlier assembly', () => {
@@ -74,7 +97,43 @@ describe('the publishable directory holds the two files it serves', () => {
 
     assembleSite(site, root);
 
-    expect(tree(site)).toEqual(['api/v1/openspec-schemas.json', 'api/v1/schema.json']);
+    expect(tree(site)).toEqual([
+      'api/v1/openspec-schemas.json',
+      'api/v1/schema.json',
+      'index.html',
+    ]);
+  });
+});
+
+describe('the root serves a page rather than the registry', () => {
+  it('publishes a page a browser can render', () => {
+    assembleSite(site, root);
+    const page = readFileSync(join(site, 'index.html'), 'utf8');
+
+    expect(page).toMatch(/^<!doctype html>/i);
+    expect(page).toContain('</html>');
+  });
+
+  it('publishes the page byte for byte', () => {
+    assembleSite(site, root);
+
+    expect(readFileSync(join(site, 'index.html'))).toEqual(readFileSync(pageFile));
+  });
+
+  it('serves no registry entry from the root', () => {
+    assembleSite(site, root);
+    const page = readFileSync(join(site, 'index.html'), 'utf8');
+
+    expect(page).not.toContain('"schemas"');
+  });
+
+  it('loads no subresource from anywhere else, so the page is one request', () => {
+    const page = readFileSync(pageFile, 'utf8');
+    const external = page.match(
+      /<(?:script|link|img|source|iframe)\b[^>]*\b(?:src|href)="(?:https?:)?\/\//gi,
+    );
+
+    expect(external).toBeNull();
   });
 });
 
@@ -156,11 +215,17 @@ describe('assembling refuses a target it should not empty', () => {
 });
 
 describe('the layout is stated once', () => {
-  it('serves each source file under the versioned path', () => {
+  it('lists the page and the two machine addresses', () => {
     expect(publishedFiles.map((file) => file.published)).toEqual([
+      'index.html',
       'api/v1/openspec-schemas.json',
       'api/v1/schema.json',
     ]);
-    expect(publishedFiles.every((file) => file.published.startsWith('api/v1/'))).toBe(true);
+  });
+
+  it('puts every file that is not the page under the versioned path', () => {
+    const machine = publishedFiles.filter((file) => file.published !== 'index.html');
+
+    expect(machine.every((file) => file.published.startsWith(versionedPrefix))).toBe(true);
   });
 });

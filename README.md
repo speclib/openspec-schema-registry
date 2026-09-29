@@ -24,6 +24,9 @@ is generated, reordered or added on the way out, so what you fetch is what `npm 
 checked. A deploy only happens when that validation passes; when it fails the previous
 document stays in place.
 
+The root of the site serves a placeholder page, kept in `public/index.html`. Every machine
+address stays under `/api/v1/`, so the page and the registry never collide.
+
 ### What `v1` means
 
 The version changes when a consumer that reads the current version correctly would misread

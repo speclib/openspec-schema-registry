@@ -29,7 +29,7 @@ describe('the assemble-site command', () => {
     expect(code).toBe(0);
     expect(output).toContain('api/v1/openspec-schemas.json');
     expect(output).toContain('api/v1/schema.json');
-    expect(readdirSync(site)).toEqual(['api']);
+    expect(readdirSync(site).sort()).toEqual(['api', 'index.html']);
   });
 
   it('defaults to a site directory beside the caller', () => {
